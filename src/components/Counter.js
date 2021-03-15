@@ -8,15 +8,15 @@ How many slices of state do you think are necessary to act as "sources of truth"
 the things that change in this widget? Give it some thought before continuing reading!
 
 A naive developer might say 3 different slices:
-  - The count
-  - Whether the text is color crimson or royalblue
-  - Whether the text reads "even" or "odd"
+  - The count  ✅
+  - Whether the text is color crimson or royalblue❌
+  - Whether the text reads "even" or "odd" ✅
 
 But a single slice of state is all that's needed here: the count!
 The other things can simply be _derived_ from the count itself.
 
 STEP 0:
-  Start by studying the component below, and importing the state hook.
+  Start by studying the component below, and importing the state hook. // {useState} line49
 
 STEP 1:
   Using the state hook, create a 'count', 'setCount' pair.
@@ -46,32 +46,39 @@ STEP 6:
   This click handler needs to use 'setCount' to set the 'count' to be zero again.
 */
 
-import React from 'react'; /* STEP 0 */
+import React, { useState } from 'react'; /* STEP 0✅ */ 
 
-export default function Counter() {
-  /* STEP 1 */
+export default function Counter() { 
+  // STEP 1 ✅
+  const[count, setCount] = useState(0)
 
+  
   const increment = () => {
-    /* STEP 4 */
+    /* STEP 4 ✅*/ 
+    
+    setCount(count + 1)
   };
   const decrement = () => {
-    /* STEP 5 */
+    /* STEP 5 ✅*/ 
+    setCount(count - 1)
   };
   const reset = () => {
-    /* STEP 6 */
+    /* STEP 6 ✅*/ 
+    setCount(0)
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    color: count % 2 == 0 ? 'royalblue' : 'crimson'  /* STEP 2 ✅ */
   };
 
   return (
     <div className='widget-counter container'>
       <h2>Counter</h2>
       <div id='count' style={style}>
-        Number 0 is even {/* STEP 3 */}
+         {/* STEP 3 ✅*/} 
+        Number {count} {count % 2 == 0 ? 'Even' : 'Odd'}
       </div>
       <div>
         <button id='increment' onClick={increment}>Increment</button>
